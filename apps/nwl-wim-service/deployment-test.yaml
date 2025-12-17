@@ -13,7 +13,7 @@ spec:
         app: nwl-wim-service
       annotations:
         vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "nwl-wim"
+        vault.hashicorp.com/role: "nwl-wim-service"
         vault.hashicorp.com/agent-inject-secret-env: "secret/data/test/nwl-wim-service"
         vault.hashicorp.com/agent-inject-template-env: |
           {{- with secret "secret/data/test/nwl-wim-service" -}}
