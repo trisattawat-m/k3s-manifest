@@ -1,20 +1,25 @@
 # ============================================================================
-# File: apps/nwl-wim-service/service.yaml
+# File: apps/vault/service.yaml
 # ============================================================================
 apiVersion: v1
 kind: Service
 metadata:
-  name: nwl-wim-service
+  name: vault
   namespace: dev
   labels:
-    app: nwl-wim-service
+    app: vault
+    component: secrets
 spec:
   type: ClusterIP
   selector:
-    app: nwl-wim-service
+    app: vault
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: 8200
+      targetPort: 8200
       protocol: TCP
-  sessionAffinity: None
+    - name: cluster
+      port: 8201
+      targetPort: 8201
+      protocol: TCP
+  sessionAffinity: ClientIP

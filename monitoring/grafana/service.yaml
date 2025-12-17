@@ -1,20 +1,21 @@
 # ============================================================================
-# File: apps/nwl-wim-service/service.yaml
+# File: monitoring/grafana/service.yaml
 # ============================================================================
 apiVersion: v1
 kind: Service
 metadata:
-  name: nwl-wim-service
-  namespace: dev
+  name: grafana
+  namespace: monitoring
   labels:
-    app: nwl-wim-service
+    app: grafana
+    component: monitoring
 spec:
   type: ClusterIP
   selector:
-    app: nwl-wim-service
+    app: grafana
   ports:
     - name: http
-      port: 8080
-      targetPort: 8080
+      port: 3000
+      targetPort: 3000
       protocol: TCP
   sessionAffinity: None

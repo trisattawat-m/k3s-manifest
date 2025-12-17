@@ -1,4 +1,10 @@
+# ============================================================================
+# File: namespaces/dev.yaml
+# ============================================================================
 apiVersion: v1
 kind: Namespace
 metadata:
   name: dev
+  labels:
+    name: dev
+    environment: development

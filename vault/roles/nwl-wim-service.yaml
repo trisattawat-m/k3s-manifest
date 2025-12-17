@@ -1,6 +1,11 @@
+# ============================================================================
+# File: vault/roles/nwl-wim-service.yaml
+# Description: Vault Kubernetes auth role configuration
+# ============================================================================
 role: nwl-wim-service
 bound_service_account_names: ["nwl-wim-sa"]
 bound_service_account_namespaces: ["dev", "test"]
 policies: ["nwl-wim-service"]
 audience: vault
 ttl: 24h
+max_ttl: 48h

@@ -1,10 +1,11 @@
 # ============================================================================
-# File: namespaces/test.yaml
+# File: namespaces/monitoring.yaml
 # ============================================================================
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: test
+  name: monitoring
   labels:
-    name: test
-    environment: testing
+    name: monitoring
+    environment: production
+    purpose: observability

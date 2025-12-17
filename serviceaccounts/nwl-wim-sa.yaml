@@ -1,4 +1,18 @@
+# ============================================================================
+# File: serviceaccounts/nwl-wim-sa.yaml
+# ============================================================================
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: nwl-wim-sa
+  namespace: dev
+  labels:
+    app: nwl-wim-service
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: nwl-wim-sa
+  namespace: test
+  labels:
+    app: nwl-wim-service

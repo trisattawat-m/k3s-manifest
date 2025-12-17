@@ -1,0 +1,45 @@
+# ============================================================================
+# File: apps/nwl-wim-service/ingress.yaml
+# ============================================================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nwl-wim-service
+  namespace: dev
+  labels:
+    app: nwl-wim-service
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.middlewares: dev-nwl-wim-stripprefix@kubernetescrd
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /nwl-wim
+            pathType: Prefix
+            backend:
+              service:
+                name: nwl-wim-service
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nwl-wim-service
+                port:
+                  number: 8080
+
+---
+# ============================================================================
+# Middleware for nwl-wim-service path stripping
+# ============================================================================
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nwl-wim-stripprefix
+  namespace: dev
+spec:
+  stripPrefix:
+    prefixes:
+      - /nwl-wim
