@@ -1,0 +1,6 @@
+role: nwl-wim
+bound_service_account_names: ["nwl-wim-sa"]
+bound_service_account_namespaces: ["dev", "test"]
+policies: ["nwl-wim"]
+audience: vault
+ttl: 24h
