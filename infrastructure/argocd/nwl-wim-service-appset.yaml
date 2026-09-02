@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: nwl-wim-service-appset
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - env: dev
+          - env: test
+  template:
+    metadata:
+      name: "{{env}}-nwl-wim-service"
+    spec:
+      project: default
+      source:
+        repoURL: "https://github.com/trisattawat-m/k3s-manifest.git"
+        targetRevision: HEAD
+        path: "apps/nwl-wim-service"
+        helm:
+          valueFiles:
+            - "values.yaml"
+            - "values-{{env}}.yaml"
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{env}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

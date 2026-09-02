@@ -1,0 +1,16 @@
+replicaCount: 2
+
+env:
+  ENVIRONMENT: "development"
+
+ingress:
+  enabled: true
+  hosts:
+  - host: dev.nwl-wim.k3s-workshop.local
+    paths:
+    - path: /
+      pathType: Prefix
+
+vault:
+  role: "dev-nwl-wim-service"
+  secretPath: "network-link/data/dev/nwl-wim-service"

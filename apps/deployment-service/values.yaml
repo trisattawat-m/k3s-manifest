@@ -1,0 +1,51 @@
+replicaCount: 2
+
+image:
+  repository: 10.15.15.116:32500/nwl-wim-service
+  pullPolicy: Always
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8080
+
+env:
+  PORT: "8080"
+  ENVIRONMENT: "development"
+  LOG_LEVEL: "info"
+
+ingress:
+  enabled: false
+  className: "nginx"
+  hosts:
+  - host: nwl-wim.k3s-workshop.local
+    paths:
+    - path: /
+      pathType: Prefix
+
+vault:
+  enabled: true
+  role: "nwl-wim-service"
+  secretPath: "network-link/data/dev/nwl-wim-service"
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+
+probes:
+  liveness:
+    path: /health
+    initialDelaySeconds: 30
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+  readiness:
+    path: /ready
+    initialDelaySeconds: 10
+    periodSeconds: 5
+    timeoutSeconds: 3
+    failureThreshold: 3

@@ -1,0 +1,16 @@
+replicaCount: 1
+
+env:
+  ENVIRONMENT: "test"
+
+ingress:
+  enabled: true
+  hosts:
+  - host: test.nwl-wim.k3s-workshop.local
+    paths:
+    - path: /
+      pathType: Prefix
+
+vault:
+  role: "test-nwl-wim-service"
+  secretPath: "network-link/data/test/nwl-wim-service"

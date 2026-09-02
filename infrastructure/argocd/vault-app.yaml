@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nwl-vault
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: "https://helm.releases.hashicorp.com"
+      chart: vault
+      targetRevision: "0.28.1"
+      helm:
+        valueFiles:
+          - $values/infrastructure/vault/values-vault.yaml
+    - repoURL: "https://github.com/trisattawat-m/k3s-manifest.git"
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: infra
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

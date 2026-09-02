@@ -1,0 +1,50 @@
+server:
+  dev:
+    enabled: false
+  standalone:
+    enabled: true
+    config: |
+      ui = true
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+      storage "file" {
+        path = "/vault/data"
+      }
+  dataStorage:
+    enabled: true
+    size: 5Gi
+  resources:
+    requests:
+      cpu: 150m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: "ca-issuer"
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+
+    tls:
+    - hosts:
+      - vault.k3s-workshop.local
+      secretName: vault-tls-secret
+
+    hosts:
+    - host: vault.k3s-workshop.local
+      paths:
+      - /
+
+injector:
+  enabled: true
+
+ui:
+  enabled: true
+  serviceType: ClusterIP
