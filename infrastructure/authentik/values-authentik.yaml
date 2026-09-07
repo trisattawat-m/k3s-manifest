@@ -1,6 +1,6 @@
 authentik:
   # Generate with: openssl rand -base64 60
-  # Do NOT change this after first install (invalidates sessions/cookies).
+  # Do NOT change this after first install (invalidates sessions/cookies)
   secret_key: "CHANGE_ME_generate_with_openssl_rand_base64_60"
   error_reporting:
     enabled: false
